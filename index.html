@@ -1,0 +1,913 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tiles Survive Protest</title>
+    <meta name="description" content="Сообщество игроков Tiles Survive выступает за возвращение ускорителей за участие в рейдах.">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+    <style>
+        * { font-family: 'Inter', system-ui, sans-serif; }
+        .mono { font-family: 'JetBrains Mono', monospace; }
+        
+        body {
+            background: linear-gradient(135deg, #0a0a0f 0%, #1a1a2e 50%, #0a0a0f 100%);
+            min-height: 100vh;
+        }
+        
+        .hero-gradient {
+            background: radial-gradient(ellipse at top, rgba(139, 92, 246, 0.15) 0%, transparent 50%),
+                        radial-gradient(ellipse at bottom, rgba(236, 72, 153, 0.1) 0%, transparent 50%);
+        }
+        
+        .glass {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        
+        .glass-dark {
+            background: rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        
+        .glow-pink {
+            box-shadow: 0 0 40px rgba(236, 72, 153, 0.3);
+        }
+        
+        .glow-purple {
+            box-shadow: 0 0 40px rgba(139, 92, 246, 0.3);
+        }
+        
+        .text-gradient {
+            background: linear-gradient(135deg, #ec4899 0%, #8b5cf6 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .btn-gradient {
+            background: linear-gradient(135deg, #ec4899 0%, #8b5cf6 100%);
+            transition: all 0.3s ease;
+        }
+        
+        .btn-gradient:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(236, 72, 153, 0.4);
+        }
+        
+        .card-hover {
+            transition: all 0.3s ease;
+        }
+        
+        .card-hover:hover {
+            transform: translateY(-5px);
+            border-color: rgba(236, 72, 153, 0.3);
+        }
+        
+        .copy-box {
+            background: rgba(0, 0, 0, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .copy-box:hover {
+            border-color: rgba(236, 72, 153, 0.4);
+        }
+        
+        [data-lang="en"] { display: none; }
+        body.lang-en [data-lang="ru"] { display: none; }
+        body.lang-en [data-lang="en"] { display: block; }
+        
+        .animate-float {
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        .image-placeholder {
+            background: linear-gradient(135deg, #1a1a2e 0%, #2d2d44 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 200px;
+        }
+    </style>
+</head>
+<body class="text-white">
+    
+    <!-- Navigation -->
+    <nav class="fixed top-0 left-0 right-0 z-50 glass-dark">
+        <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+            <div class="flex items-center gap-3">
+                <span class="text-4xl animate-float">🧟</span>
+                <span class="text-2xl font-bold text-gradient">TILES SURVIVE PROTEST</span>
+            </div>
+            <div class="flex gap-3">
+                <button onclick="setLanguage('ru')" id="btn-ru" class="px-5 py-2.5 rounded-xl bg-pink-600/20 border border-pink-500/50 hover:bg-pink-600/40 transition font-semibold">
+                    🇷🇺 RU
+                </button>
+                <button onclick="setLanguage('en')" id="btn-en" class="px-5 py-2.5 rounded-xl bg-purple-600/20 border border-purple-500/50 hover:bg-purple-600/40 transition font-semibold">
+                    🇬🇧 EN
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <div class="pt-24 hero-gradient">
+        
+        <!-- Hero Section -->
+        <section class="py-20 md:py-32 text-center px-6">
+            <div class="max-w-4xl mx-auto">
+                <div data-lang="ru">
+                    <h1 class="text-5xl md:text-7xl font-black mb-6 tracking-tight">
+                        <span class="text-gradient">#СТОПДОНАТ</span>
+                    </h1>
+                    <h2 class="text-3xl md:text-5xl font-bold text-pink-400 mb-8">#ВЕРНИТЕУСКОРЫ</h2>
+                    <p class="text-xl md:text-2xl text-zinc-300 mb-10 max-w-2xl mx-auto leading-relaxed">
+                        Пока не вернут ускорители за участие в рейдах — донатов не будет.
+                    </p>
+                </div>
+                
+                <div data-lang="en">
+                    <h1 class="text-5xl md:text-7xl font-black mb-6 tracking-tight">
+                        <span class="text-gradient">#STOPDONATE</span>
+                    </h1>
+                    <h2 class="text-3xl md:text-5xl font-bold text-pink-400 mb-8">#RESTORERAIDREWARDS</h2>
+                    <p class="text-xl md:text-2xl text-zinc-300 mb-10 max-w-2xl mx-auto leading-relaxed">
+                        No donations until raid participation rewards are restored.
+                    </p>
+                </div>
+                
+                <a href="https://forms.gle/SXMW5neKdKCoYaMaA" target="_blank" class="inline-block btn-gradient px-10 py-4 rounded-2xl font-bold text-lg">
+                    <span data-lang="ru">📝 Отправить отзыв</span>
+                    <span data-lang="en">📝 Submit Feedback</span>
+                </a>
+            </div>
+        </section>
+
+        <!-- Why We Protest -->
+        <section class="py-20 px-6">
+            <div class="max-w-4xl mx-auto">
+                <h2 class="text-center text-4xl md:text-5xl font-bold mb-12">
+                    <span data-lang="ru" class="text-gradient">Что произошло?</span>
+                    <span data-lang="en" class="text-gradient">What happened?</span>
+                </h2>
+                
+                <div class="glass rounded-2xl p-8">
+                    <p data-lang="ru" class="text-lg leading-relaxed mb-6">
+                        FunPlus в лице разработчиков Tiles Survive убрали коробки с ускорителями для игроков, которые присоединяются к рейдам. Раньше все участники получали награды за помощь союзникам. Теперь только организатор рейда получает нормальные коробки. Присоединившиеся игроки почти ничего не получают.
+                    </p>
+                    <p data-lang="en" class="text-lg leading-relaxed mb-6">
+                        FunPlus in the face of Tiles Survive developers removed speed-up boxes for players who join raids. Before, all participants got rewards for helping allies. Now only the raid organizer gets decent boxes. Joining players get almost nothing.
+                    </p>
+                    
+                    <p data-lang="ru" class="text-lg leading-relaxed mb-6">
+                        Это изменение убило мотивацию помогать. Зачем участвовать в рейде союзника, если нет награды? Командная игра разрушена.
+                    </p>
+                    <p data-lang="en" class="text-lg leading-relaxed mb-6">
+                        This change killed the motivation to help. Why join an ally's raid if there's no reward? Teamwork is destroyed.
+                    </p>
+                    
+                    <p data-lang="ru" class="text-lg leading-relaxed font-bold">
+                        Мы требуем вернуть прежнюю систему наград для всех участников рейдов.
+                    </p>
+                    <p data-lang="en" class="text-lg leading-relaxed font-bold">
+                        We demand the return of the previous reward system for all raid participants.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Huge Disclaimer -->
+        <section class="py-12 px-6 bg-red-950/30 border-y border-red-500/30">
+            <div class="max-w-4xl mx-auto">
+                <div class="glass rounded-2xl p-6 border-2 border-red-500/50">
+                    <div class="flex items-start gap-4">
+                        <span class="text-4xl">⚠️</span>
+                        <div>
+                            <h3 class="text-xl font-bold text-red-400 mb-2">
+                                <span data-lang="ru">ВАЖНЫЙ ДИСКЛЕЙМЕР</span>
+                                <span data-lang="en">IMPORTANT DISCLAIMER</span>
+                            </h3>
+                            <p data-lang="ru" class="text-zinc-300">
+                                <strong>Настоятельно рекомендуем писать СВОИ тексты!</strong> Приведённые ниже тексты — это лишь примеры и шаблоны. Разработчики лучше реагируют на уникальные, личные сообщения, написанные от сердца. Используйте эти тексты как основу, но обязательно адаптируйте их под свой опыт и стиль общения. Также, скорее всего, вам будут автоматически закрывать тикеты или отправлять отписки. Главная задача — не дать им это сделать. Постоянно нужно переоткрывать тикет, отправлять новое сообщение на почту или продолжать диалог с личным менеджером.
+                            </p>
+                            <p data-lang="en" class="text-zinc-300">
+                                <strong>We strongly recommend writing YOUR OWN texts!</strong> The texts below are just examples and templates. Developers respond better to unique, personal messages written from the heart. Use these texts as a base, but be sure to adapt them to your experience and communication style. Also, they will most likely close your tickets automatically or send you canned responses. Your main goal is to prevent them from doing this. You need to constantly reopen the ticket, send a new email, or keep the dialogue going with your account manager.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Petition -->
+        <section class="py-20 px-6">
+            <div class="max-w-5xl mx-auto">
+                <h2 class="text-center text-4xl md:text-5xl font-bold mb-4">
+                    <span data-lang="ru" class="text-gradient">Тексты петиций</span>
+                    <span data-lang="en" class="text-gradient">Petition Texts</span>
+                </h2>
+                <p class="text-center text-zinc-400 mb-12">
+                    <span data-lang="ru">Выберите текст и способ отправки</span>
+                    <span data-lang="en">Choose text and sending method</span>
+                </p>
+                
+                <div class="space-y-8">
+                    <!-- Variant 1 -->
+                    <div class="glass rounded-2xl p-6">
+                        <div class="flex items-center gap-2 mb-6">
+                            <span class="bg-pink-600/30 text-pink-400 px-3 py-1 rounded-full text-sm font-bold">
+                                <span data-lang="ru">Вариант 1</span>
+                                <span data-lang="en">Variant 1</span>
+                            </span>
+                        </div>
+                        
+                        <div class="grid md:grid-cols-2 gap-4">
+                            <!-- Email -->
+                            <div class="copy-box rounded-xl p-4">
+                                <div class="text-sm text-zinc-400 mb-2 flex items-center gap-2">
+                                    <span data-lang="ru">📧 support@funplus.com</span>
+                                    <span data-lang="en">📧 support@funplus.com</span>
+                                    <button onclick="copyEmail()" class="text-xs bg-pink-600/20 px-2 py-1 rounded hover:bg-pink-600/40 ml-auto">📋</button>
+                                </div>
+                                <div class="space-y-2">
+                                    <div>
+                                        <div class="text-xs text-zinc-500 mb-1">
+                                            <span data-lang="ru">Тема</span>
+                                            <span data-lang="en">Subject</span>
+                                        </div>
+                                        <div class="flex gap-2">
+                                            <div data-lang="ru" class="text-sm text-zinc-300 flex-1">Верните коробки ускорителей в рейдах — вы убиваете командную игру</div>
+                                            <div data-lang="en" class="text-sm text-zinc-300 flex-1">Return booster boxes to raids — you're killing teamwork</div>
+                                            <button onclick="copySubject(this)" class="text-xs bg-pink-600/20 px-2 py-1 rounded hover:bg-pink-600/40">📋</button>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <div class="text-xs text-zinc-500 mb-1">
+                                            <span data-lang="ru">Текст</span>
+                                            <span data-lang="en">Body</span>
+                                        </div>
+                                        <div class="flex gap-2">
+                                            <div data-lang="ru" class="text-sm text-zinc-300 flex-1">Штат: [штат] Ник: [ник]
+
+FunPlus, вы в лице разработчиков Tiles Survive предали всех игроков, которые любили командные рейды. Вы забрали коробки ускорителей у тех, кто присоединяется, оставив их только организатору. Теперь помогать друзьям стало бессмысленно и обидно. Вы разрушили то, ради чего мы играли вместе. Я больше не чувствую мотивации и не буду донатить, пока вы не вернёте прежнюю систему. Это не просто просьба — это мой последний рубеж. Верните справедливость.</div>
+                                            <div data-lang="en" class="text-sm text-zinc-300 flex-1">State: [state] Nick: [nickname]
+
+FunPlus in the face of Tiles Survive developers betrayed everyone who loved playing Tiles Survive together. By removing booster boxes from players who join raids and giving them only to the organizer, you've made helping friends pointless and painful. You destroyed the very thing that kept us playing as a team. I no longer feel motivated to spend money. I will not donate until you restore the old system. This is my final line.</div>
+                                            <button onclick="copyBody(this)" class="text-xs bg-pink-600/20 px-2 py-1 rounded hover:bg-pink-600/40">📋</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Form -->
+                            <div class="copy-box rounded-xl p-4">
+                                <div class="text-sm text-zinc-400 mb-2">
+                                    <span data-lang="ru">📝 Через форму</span>
+                                    <span data-lang="en">📝 Via form</span>
+                                </div>
+                                <div class="flex gap-2">
+                                    <div data-lang="ru" class="text-sm text-zinc-300 flex-1">FunPlus в лице разработчиков Tiles Survive предали всех, кто любил помогать в рейдах. Забрав коробки ускорителей у присоединяющихся игроков, вы сделали командную игру бессмысленной. Только организатор теперь получает нормальные награды. Вы разрушили мотивацию и дух сообщества. Верните прежнюю систему, иначе я полностью прекращаю донатить и буду рекомендовать то же самое всем своим друзьям.</div>
+                                    <div data-lang="en" class="text-sm text-zinc-300 flex-1">FunPlus in the face of Tiles Survive developers betrayed everyone who enjoyed helping in raids. Removing booster boxes from joining players and giving them only to the organizer has ruined teamwork and motivation. Restore the old system or I will stop donating completely and advise my friends to do the same.</div>
+                                    <button onclick="copySimple(this)" class="text-xs bg-pink-600/20 px-2 py-1 rounded hover:bg-pink-600/40">📋</button>
+                                </div>
+                            </div>
+                            
+                            <!-- Support -->
+                            <div class="copy-box rounded-xl p-4">
+                                <div class="text-sm text-zinc-400 mb-2">
+                                    <span data-lang="ru">💬 В поддержку игры</span>
+                                    <span data-lang="en">💬 In-game support</span>
+                                </div>
+                                <div class="flex gap-2">
+                                    <div data-lang="ru" class="text-sm text-zinc-300 flex-1">FunPlus в лице разработчиков Tiles Survive предали всех, кто любил помогать в рейдах. Забрав коробки ускорителей у присоединяющихся игроков, вы сделали командную игру бессмысленной. Только организатор теперь получает нормальные награды. Вы разрушили мотивацию и дух сообщества. Верните прежнюю систему, иначе я полностью прекращаю донатить и буду рекомендовать то же самое всем своим друзьям.</div>
+                                    <div data-lang="en" class="text-sm text-zinc-300 flex-1">FunPlus in the face of Tiles Survive developers betrayed everyone who enjoyed helping in raids. Removing booster boxes from joining players and giving them only to the organizer has ruined teamwork and motivation. Restore the old system or I will stop donating completely and advise my friends to do the same.</div>
+                                    <button onclick="copySimple(this)" class="text-xs bg-pink-600/20 px-2 py-1 rounded hover:bg-pink-600/40">📋</button>
+                                </div>
+                            </div>
+                            
+                            <!-- Discord -->
+                            <div class="copy-box rounded-xl p-4">
+                                <div class="text-sm text-zinc-400 mb-2">
+                                    <span data-lang="ru">🎮 Личному менеджеру в Discord</span>
+                                    <span data-lang="en">🎮 Discord manager</span>
+                                </div>
+                                <div class="flex gap-2">
+                                    <div data-lang="ru" class="text-sm text-zinc-300 flex-1">FunPlus в лице разработчиков Tiles Survive предали всех, кто любил помогать в рейдах. Забрав коробки ускорителей у присоединяющихся игроков, вы сделали командную игру бессмысленной. Только организатор теперь получает нормальные награды. Вы разрушили мотивацию и дух сообщества. Верните прежнюю систему, иначе я полностью прекращаю донатить и буду рекомендовать то же самое всем своим друзьям.</div>
+                                    <div data-lang="en" class="text-sm text-zinc-300 flex-1">FunPlus in the face of Tiles Survive developers betrayed everyone who enjoyed helping in raids. Removing booster boxes from joining players and giving them only to the organizer has ruined teamwork and motivation. Restore the old system or I will stop donating completely and advise my friends to do the same.</div>
+                                    <button onclick="copySimple(this)" class="text-xs bg-pink-600/20 px-2 py-1 rounded hover:bg-pink-600/40">📋</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Variant 2 -->
+                    <div class="glass rounded-2xl p-6">
+                        <div class="flex items-center gap-2 mb-6">
+                            <span class="bg-purple-600/30 text-purple-400 px-3 py-1 rounded-full text-sm font-bold">
+                                <span data-lang="ru">Вариант 2</span>
+                                <span data-lang="en">Variant 2</span>
+                            </span>
+                        </div>
+                        
+                        <div class="grid md:grid-cols-2 gap-4">
+                            <div class="copy-box rounded-xl p-4">
+                                <div class="text-sm text-zinc-400 mb-2 flex items-center gap-2">
+                                    <span data-lang="ru">📧 support@funplus.com</span>
+                                    <span data-lang="en">📧 support@funplus.com</span>
+                                    <button onclick="copyEmail()" class="text-xs bg-pink-600/20 px-2 py-1 rounded hover:bg-pink-600/40 ml-auto">📋</button>
+                                </div>
+                                <div class="space-y-2">
+                                    <div>
+                                        <div class="text-xs text-zinc-500 mb-1">
+                                            <span data-lang="ru">Тема</span>
+                                            <span data-lang="en">Subject</span>
+                                        </div>
+                                        <div class="flex gap-2">
+                                            <div data-lang="ru" class="text-sm text-zinc-300 flex-1">Рейды должны быть для всех, а не только для лидеров</div>
+                                            <div data-lang="en" class="text-sm text-zinc-300 flex-1">Raids should be rewarding for everyone, not just leaders</div>
+                                            <button onclick="copySubject(this)" class="text-xs bg-pink-600/20 px-2 py-1 rounded hover:bg-pink-600/40">📋</button>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <div class="text-xs text-zinc-500 mb-1">
+                                            <span data-lang="ru">Текст</span>
+                                            <span data-lang="en">Body</span>
+                                        </div>
+                                        <div class="flex gap-2">
+                                            <div data-lang="ru" class="text-sm text-zinc-300 flex-1">Штат: [штат] Ник: [ник]
+
+FunPlus в лице разработчиков Tiles Survive отняли у обычных игроков любой смысл помогать в рейдах. Теперь только лидер получает коробки, а все остальные — пустоту. Зачем мне тратить время и силы на сокланов, если я ничего не получаю? Вы убили мотивацию и чувство справедливости. Я больше не вижу смысла вкладываться в игру. Верните награды всем участникам, иначе я перестану платить навсегда. Это уже не просто недовольство — это потеря игрока, который раньше с удовольствием донатил.</div>
+                                            <div data-lang="en" class="text-sm text-zinc-300 flex-1">State: [state] Nick: [nickname]
+
+FunPlus in the face of Tiles Survive developers removed any reason for regular players to help in raids. Now only the leader gets the boxes. Why should I waste my time helping clanmates if I get nothing in return? You killed motivation and fairness. Restore rewards for all participants or I will stop paying forever. This is how you lose loyal players.</div>
+                                            <button onclick="copyBody(this)" class="text-xs bg-pink-600/20 px-2 py-1 rounded hover:bg-pink-600/40">📋</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="copy-box rounded-xl p-4">
+                                <div class="text-sm text-zinc-400 mb-2">
+                                    <span data-lang="ru">📝 Через форму</span>
+                                    <span data-lang="en">📝 Via form</span>
+                                </div>
+                                <div class="flex gap-2">
+                                    <div data-lang="ru" class="text-sm text-zinc-300 flex-1">FunPlus в лице разработчиков Tiles Survive отняли смысл помогать в рейдах. Теперь награды только для лидера. Зачем обычному игроку стараться, если он ничего не получает? Вы убили мотивацию и справедливость. Верните коробки всем участникам, иначе я полностью прекращаю поддерживать игру.</div>
+                                    <div data-lang="en" class="text-sm text-zinc-300 flex-1">FunPlus in the face of Tiles Survive developers removed any reason for regular players to help in raids. Now only the leader gets the boxes. Why should I waste my time helping clanmates if I get nothing in return? You killed motivation and fairness. Restore rewards for all participants or I will stop paying forever.</div>
+                                    <button onclick="copySimple(this)" class="text-xs bg-pink-600/20 px-2 py-1 rounded hover:bg-pink-600/40">📋</button>
+                                </div>
+                            </div>
+                            
+                            <div class="copy-box rounded-xl p-4">
+                                <div class="text-sm text-zinc-400 mb-2">
+                                    <span data-lang="ru">💬 В поддержку игры</span>
+                                    <span data-lang="en">💬 In-game support</span>
+                                </div>
+                                <div class="flex gap-2">
+                                    <div data-lang="ru" class="text-sm text-zinc-300 flex-1">FunPlus в лице разработчиков Tiles Survive отняли смысл помогать в рейдах. Теперь награды только для лидера. Зачем обычному игроку стараться, если он ничего не получает? Вы убили мотивацию и справедливость. Верните коробки всем участникам, иначе я полностью прекращаю поддерживать игру.</div>
+                                    <div data-lang="en" class="text-sm text-zinc-300 flex-1">FunPlus in the face of Tiles Survive developers removed any reason for regular players to help in raids. Now only the leader gets the boxes. Why should I waste my time helping clanmates if I get nothing in return? You killed motivation and fairness. Restore rewards for all participants or I will stop paying forever.</div>
+                                    <button onclick="copySimple(this)" class="text-xs bg-pink-600/20 px-2 py-1 rounded hover:bg-pink-600/40">📋</button>
+                                </div>
+                            </div>
+                            
+                            <div class="copy-box rounded-xl p-4">
+                                <div class="text-sm text-zinc-400 mb-2">
+                                    <span data-lang="ru">🎮 Личному менеджеру в Discord</span>
+                                    <span data-lang="en">🎮 Discord manager</span>
+                                </div>
+                                <div class="flex gap-2">
+                                    <div data-lang="ru" class="text-sm text-zinc-300 flex-1">FunPlus в лице разработчиков Tiles Survive отняли смысл помогать в рейдах. Теперь награды только для лидера. Зачем обычному игроку стараться, если он ничего не получает? Вы убили мотивацию и справедливость. Верните коробки всем участникам, иначе я полностью прекращаю поддерживать игру.</div>
+                                    <div data-lang="en" class="text-sm text-zinc-300 flex-1">FunPlus in the face of Tiles Survive developers removed any reason for regular players to help in raids. Now only the leader gets the boxes. Why should I waste my time helping clanmates if I get nothing in return? You killed motivation and fairness. Restore rewards for all participants or I will stop paying forever.</div>
+                                    <button onclick="copySimple(this)" class="text-xs bg-pink-600/20 px-2 py-1 rounded hover:bg-pink-600/40">📋</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Variant 3 -->
+                    <div class="glass rounded-2xl p-6">
+                        <div class="flex items-center gap-2 mb-6">
+                            <span class="bg-pink-600/30 text-pink-400 px-3 py-1 rounded-full text-sm font-bold">
+                                <span data-lang="ru">Вариант 3</span>
+                                <span data-lang="en">Variant 3</span>
+                            </span>
+                        </div>
+                        
+                        <div class="grid md:grid-cols-2 gap-4">
+                            <div class="copy-box rounded-xl p-4">
+                                <div class="text-sm text-zinc-400 mb-2 flex items-center gap-2">
+                                    <span data-lang="ru">📧 support@funplus.com</span>
+                                    <span data-lang="en">📧 support@funplus.com</span>
+                                    <button onclick="copyEmail()" class="text-xs bg-pink-600/20 px-2 py-1 rounded hover:bg-pink-600/40 ml-auto">📋</button>
+                                </div>
+                                <div class="space-y-2">
+                                    <div>
+                                        <div class="text-xs text-zinc-500 mb-1">
+                                            <span data-lang="ru">Тема</span>
+                                            <span data-lang="en">Subject</span>
+                                        </div>
+                                        <div class="flex gap-2">
+                                            <div data-lang="ru" class="text-sm text-zinc-300 flex-1">Рейды потеряли смысл для обычных игроков</div>
+                                            <div data-lang="en" class="text-sm text-zinc-300 flex-1">Raids have lost all meaning for regular players</div>
+                                            <button onclick="copySubject(this)" class="text-xs bg-pink-600/20 px-2 py-1 rounded hover:bg-pink-600/40">📋</button>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <div class="text-xs text-zinc-500 mb-1">
+                                            <span data-lang="ru">Текст</span>
+                                            <span data-lang="en">Body</span>
+                                        </div>
+                                        <div class="flex gap-2">
+                                            <div data-lang="ru" class="text-sm text-zinc-300 flex-1">Штат: [штат] Ник: [ник]
+
+FunPlus в лице разработчиков Tiles Survive сделали рейды совершенно бессмысленными для обычных игроков. Коробки с ускорителями теперь только для организатора — это глубоко несправедливо и обидно. Мы строили альянсы и играли вместе, а вы одним изменением разрушили всю систему. Я чувствую себя обманутым. Верните прежнюю систему, иначе я уйду из игры вместе со своим альянсом. Мы не хотим играть в то, что больше не приносит радости и справедливости.</div>
+                                            <div data-lang="en" class="text-sm text-zinc-300 flex-1">State: [state] Nick: [nickname]
+
+FunPlus in the face of Tiles Survive developers made raids meaningless for ordinary players. Booster boxes are now only for the organizer — this feels deeply unfair and disrespectful. We built alliances and played together, and you destroyed it with one change. I feel betrayed. Restore the old system or I will leave the game with my entire alliance.</div>
+                                            <button onclick="copyBody(this)" class="text-xs bg-pink-600/20 px-2 py-1 rounded hover:bg-pink-600/40">📋</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="copy-box rounded-xl p-4">
+                                <div class="text-sm text-zinc-400 mb-2">
+                                    <span data-lang="ru">📝 Через форму</span>
+                                    <span data-lang="en">📝 Via form</span>
+                                </div>
+                                <div class="flex gap-2">
+                                    <div data-lang="ru" class="text-sm text-zinc-300 flex-1">FunPlus в лице разработчиков Tiles Survive сделали рейды бессмысленными для обычных игроков. Коробки ускорителей только у организатора — это несправедливо. Вы разрушили командный дух. Верните систему как было, иначе я и мой альянс уйдём из игры.</div>
+                                    <div data-lang="en" class="text-sm text-zinc-300 flex-1">FunPlus in the face of Tiles Survive developers made raids meaningless for ordinary players. Booster boxes are now only for the organizer — this feels deeply unfair and disrespectful. We built alliances and played together, and you destroyed it with one change. I feel betrayed. Restore the old system or I will leave the game with my entire alliance.</div>
+                                    <button onclick="copySimple(this)" class="text-xs bg-pink-600/20 px-2 py-1 rounded hover:bg-pink-600/40">📋</button>
+                                </div>
+                            </div>
+                            
+                            <div class="copy-box rounded-xl p-4">
+                                <div class="text-sm text-zinc-400 mb-2">
+                                    <span data-lang="ru">💬 В поддержку игры</span>
+                                    <span data-lang="en">💬 In-game support</span>
+                                </div>
+                                <div class="flex gap-2">
+                                    <div data-lang="ru" class="text-sm text-zinc-300 flex-1">FunPlus в лице разработчиков Tiles Survive сделали рейды бессмысленными для обычных игроков. Коробки ускорителей только у организатора — это несправедливо. Вы разрушили командный дух. Верните систему как было, иначе я и мой альянс уйдём из игры.</div>
+                                    <div data-lang="en" class="text-sm text-zinc-300 flex-1">FunPlus in the face of Tiles Survive developers made raids meaningless for ordinary players. Booster boxes are now only for the organizer — this feels deeply unfair and disrespectful. We built alliances and played together, and you destroyed it with one change. I feel betrayed. Restore the old system or I will leave the game with my entire alliance.</div>
+                                    <button onclick="copySimple(this)" class="text-xs bg-pink-600/20 px-2 py-1 rounded hover:bg-pink-600/40">📋</button>
+                                </div>
+                            </div>
+                            
+                            <div class="copy-box rounded-xl p-4">
+                                <div class="text-sm text-zinc-400 mb-2">
+                                    <span data-lang="ru">🎮 Личному менеджеру в Discord</span>
+                                    <span data-lang="en">🎮 Discord manager</span>
+                                </div>
+                                <div class="flex gap-2">
+                                    <div data-lang="ru" class="text-sm text-zinc-300 flex-1">FunPlus в лице разработчиков Tiles Survive сделали рейды бессмысленными для обычных игроков. Коробки ускорителей только у организатора — это несправедливо. Вы разрушили командный дух. Верните систему как было, иначе я и мой альянс уйдём из игры.</div>
+                                    <div data-lang="en" class="text-sm text-zinc-300 flex-1">FunPlus in the face of Tiles Survive developers made raids meaningless for ordinary players. Booster boxes are now only for the organizer — this feels deeply unfair and disrespectful. We built alliances and played together, and you destroyed it with one change. I feel betrayed. Restore the old system or I will leave the game with my entire alliance.</div>
+                                    <button onclick="copySimple(this)" class="text-xs bg-pink-600/20 px-2 py-1 rounded hover:bg-pink-600/40">📋</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Variant 4 -->
+                    <div class="glass rounded-2xl p-6">
+                        <div class="flex items-center gap-2 mb-6">
+                            <span class="bg-purple-600/30 text-purple-400 px-3 py-1 rounded-full text-sm font-bold">
+                                <span data-lang="ru">Вариант 4</span>
+                                <span data-lang="en">Variant 4</span>
+                            </span>
+                        </div>
+                        
+                        <div class="grid md:grid-cols-2 gap-4">
+                            <div class="copy-box rounded-xl p-4">
+                                <div class="text-sm text-zinc-400 mb-2 flex items-center gap-2">
+                                    <span data-lang="ru">📧 support@funplus.com</span>
+                                    <span data-lang="en">📧 support@funplus.com</span>
+                                    <button onclick="copyEmail()" class="text-xs bg-pink-600/20 px-2 py-1 rounded hover:bg-pink-600/40 ml-auto">📋</button>
+                                </div>
+                                <div class="space-y-2">
+                                    <div>
+                                        <div class="text-xs text-zinc-500 mb-1">
+                                            <span data-lang="ru">Тема</span>
+                                            <span data-lang="en">Subject</span>
+                                        </div>
+                                        <div class="flex gap-2">
+                                            <div data-lang="ru" class="text-sm text-zinc-300 flex-1">Мой альянс объявляет бойкот донатов</div>
+                                            <div data-lang="en" class="text-sm text-zinc-300 flex-1">My alliance is joining the donation boycott</div>
+                                            <button onclick="copySubject(this)" class="text-xs bg-pink-600/20 px-2 py-1 rounded hover:bg-pink-600/40">📋</button>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <div class="text-xs text-zinc-500 mb-1">
+                                            <span data-lang="ru">Текст</span>
+                                            <span data-lang="en">Body</span>
+                                        </div>
+                                        <div class="flex gap-2">
+                                            <div data-lang="ru" class="text-sm text-zinc-300 flex-1">Штат: [штат] Ник: [ник]
+
+FunPlus в лице разработчиков Tiles Survive, мой альянс официально присоединяется к бойкоту донатов. Мы не будем совершать никаких покупок, пока вы не вернёте коробки ускорителей всем участникам рейдов. Справедливость для игроков важнее вашей прибыли. Мы любим эту игру, но не готовы мириться с таким неуважением к сообществу. Верните прежнюю систему — и мы вернёмся к поддержке. Пока — никаких донатов.</div>
+                                            <div data-lang="en" class="text-sm text-zinc-300 flex-1">State: [state] Nick: [nickname]
+
+FunPlus in the face of Tiles Survive developers, my alliance is officially joining the donation boycott. We will make no more purchases until you return booster boxes to all raid participants. Fairness matters more than your profit. We loved this game, but we won't support a system that disrespects the community. Restore the old system and we will return.</div>
+                                            <button onclick="copyBody(this)" class="text-xs bg-pink-600/20 px-2 py-1 rounded hover:bg-pink-600/40">📋</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="copy-box rounded-xl p-4">
+                                <div class="text-sm text-zinc-400 mb-2">
+                                    <span data-lang="ru">📝 Через форму</span>
+                                    <span data-lang="en">📝 Via form</span>
+                                </div>
+                                <div class="flex gap-2">
+                                    <div data-lang="ru" class="text-sm text-zinc-300 flex-1">Мой альянс присоединяется к бойкоту донатов против FunPlus в лице разработчиков Tiles Survive. Никаких покупок, пока не вернут коробки ускорителей всем участникам рейдов. Справедливость важнее вашей прибыли. Верните систему, которую мы любили.</div>
+                                    <div data-lang="en" class="text-sm text-zinc-300 flex-1">My alliance joins the boycott against FunPlus in the face of Tiles Survive developers. No purchases until speed-up boxes are returned for all raid participants. Fairness is more important than your profit. Restore the system we loved.</div>
+                                    <button onclick="copySimple(this)" class="text-xs bg-pink-600/20 px-2 py-1 rounded hover:bg-pink-600/40">📋</button>
+                                </div>
+                            </div>
+                            
+                            <div class="copy-box rounded-xl p-4">
+                                <div class="text-sm text-zinc-400 mb-2">
+                                    <span data-lang="ru">💬 В поддержку игры</span>
+                                    <span data-lang="en">💬 In-game support</span>
+                                </div>
+                                <div class="flex gap-2">
+                                    <div data-lang="ru" class="text-sm text-zinc-300 flex-1">Мой альянс присоединяется к бойкоту донатов против FunPlus в лице разработчиков Tiles Survive. Никаких покупок, пока не вернут коробки ускорителей всем участникам рейдов. Справедливость важнее вашей прибыли. Верните систему, которую мы любили.</div>
+                                    <div data-lang="en" class="text-sm text-zinc-300 flex-1">My alliance joins the boycott against FunPlus in the face of Tiles Survive developers. No purchases until speed-up boxes are returned for all raid participants. Fairness is more important than your profit. Restore the system we loved.</div>
+                                    <button onclick="copySimple(this)" class="text-xs bg-pink-600/20 px-2 py-1 rounded hover:bg-pink-600/40">📋</button>
+                                </div>
+                            </div>
+                            
+                            <div class="copy-box rounded-xl p-4">
+                                <div class="text-sm text-zinc-400 mb-2">
+                                    <span data-lang="ru">🎮 Личному менеджеру в Discord</span>
+                                    <span data-lang="en">🎮 Discord manager</span>
+                                </div>
+                                <div class="flex gap-2">
+                                    <div data-lang="ru" class="text-sm text-zinc-300 flex-1">Мой альянс присоединяется к бойкоту донатов против FunPlus в лице разработчиков Tiles Survive. Никаких покупок, пока не вернут коробки ускорителей всем участникам рейдов. Справедливость важнее вашей прибыли. Верните систему, которую мы любили.</div>
+                                    <div data-lang="en" class="text-sm text-zinc-300 flex-1">My alliance joins the boycott against FunPlus in the face of Tiles Survive developers. No purchases until speed-up boxes are returned for all raid participants. Fairness is more important than your profit. Restore the system we loved.</div>
+                                    <button onclick="copySimple(this)" class="text-xs bg-pink-600/20 px-2 py-1 rounded hover:bg-pink-600/40">📋</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Review Bombing -->
+        <section class="py-20 px-6 bg-black/30">
+            <div class="max-w-5xl mx-auto">
+                <h2 class="text-center text-4xl md:text-5xl font-bold mb-4">
+                    <span data-lang="ru" class="text-gradient">Оставьте отзыв</span>
+                    <span data-lang="en" class="text-gradient">Leave a Review</span>
+                </h2>
+                <p class="text-center text-zinc-400 mb-12">
+                    <span data-lang="ru">Поставьте 1 звезду и расскажите о проблеме с рейдами</span>
+                    <span data-lang="en">Rate 1 star and tell about the raid issue</span>
+                </p>
+                
+                <div class="grid md:grid-cols-2 gap-6">
+                    <a href="https://apps.apple.com/ru/app/tiles-survive/id6738109752" target="_blank" class="glass rounded-2xl p-8 card-hover flex flex-col items-center text-center">
+                        <div class="text-6xl mb-4">🍎</div>
+                        <h3 class="text-2xl font-bold mb-2">App Store</h3>
+                        <p data-lang="ru" class="text-zinc-400 mb-4">iOS</p>
+                        <p data-lang="en" class="text-zinc-400 mb-4">iOS</p>
+                        <span class="text-pink-400 font-semibold">
+                            <span data-lang="ru">Открыть →</span>
+                            <span data-lang="en">Open →</span>
+                        </span>
+                    </a>
+                    
+                    <a href="https://play.google.com/store/apps/details?id=com.funplus.ts.global" target="_blank" class="glass rounded-2xl p-8 card-hover flex flex-col items-center text-center">
+                        <div class="text-6xl mb-4">🤖</div>
+                        <h3 class="text-2xl font-bold mb-2">Google Play</h3>
+                        <p data-lang="ru" class="text-zinc-400 mb-4">Android</p>
+                        <p data-lang="en" class="text-zinc-400 mb-4">Android</p>
+                        <span class="text-pink-400 font-semibold">
+                            <span data-lang="ru">Открыть →</span>
+                            <span data-lang="en">Open →</span>
+                        </span>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Game Feed Posts -->
+        <section class="py-20 px-6 bg-black/30">
+            <div class="max-w-5xl mx-auto">
+                <h2 class="text-center text-4xl md:text-5xl font-bold mb-4">
+                    <span data-lang="ru" class="text-gradient">Посты для ленты игры</span>
+                    <span data-lang="en" class="text-gradient">Game Feed Posts</span>
+                </h2>
+                <p class="text-center text-zinc-400 mb-12">
+                    <span data-lang="ru">Для публикации внутриигровой ленте</span>
+                    <span data-lang="en">For posting in in-game feed</span>
+                </p>
+                
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div class="copy-box rounded-xl p-6 border-l-4 border-pink-500">
+                        <div class="flex items-center gap-2 mb-4">
+                            <span class="bg-pink-600/30 text-pink-400 px-3 py-1 rounded-full text-sm font-bold">
+                                <span data-lang="ru">Вариант 1</span>
+                                <span data-lang="en">Variant 1</span>
+                            </span>
+                        </div>
+                        <div data-lang="ru" class="mono text-sm mb-4 whitespace-pre-wrap">#СТОПДОНАТ #ВЕРНИТЕУСКОРЫ
+
+Кошелёк на замок 🚫
+
+Пока FunPlus в лице разработчиков Tiles Survive не вернут коробки ускорителей для тех, кто присоединяется к рейдам — донатов не будет. Рейды должны быть для всех, а не только для организаторов.</div>
+                        <div data-lang="en" class="mono text-sm mb-4 whitespace-pre-wrap">#STOPDONATE #RESTORERAIDREWARDS
+
+Wallet on lock 🚫
+
+No donations until FunPlus in the face of Tiles Survive developers return speed-up boxes for raid joiners. Raids should be for everyone, not just organizers.</div>
+                        <button onclick="copySimple(this)" class="w-full bg-pink-600/20 border border-pink-500/50 hover:bg-pink-600/40 py-3 rounded-xl font-semibold transition">
+                            <span data-lang="ru">📋 Скопировать</span>
+                            <span data-lang="en">📋 Copy</span>
+                        </button>
+                    </div>
+                    
+                    <div class="copy-box rounded-xl p-6 border-l-4 border-purple-500">
+                        <div class="flex items-center gap-2 mb-4">
+                            <span class="bg-purple-600/30 text-purple-400 px-3 py-1 rounded-full text-sm font-bold">
+                                <span data-lang="ru">Вариант 2</span>
+                                <span data-lang="en">Variant 2</span>
+                            </span>
+                        </div>
+                        <div data-lang="ru" class="mono text-sm mb-4 whitespace-pre-wrap">#СТОПДОНАТ #ВЕРНИТЕУСКОРЫ
+
+Зачем помогать союзникам в рейдах, если нет награды? FunPlus в лице разработчиков Tiles Survive сделали коробки ускорителей только для организатора — это бред. Верните систему как была.</div>
+                        <div data-lang="en" class="mono text-sm mb-4 whitespace-pre-wrap">#STOPDONATE #RESTORERAIDREWARDS
+
+Why help allies in raids if there's no reward? FunPlus in the face of Tiles Survive developers made speed-up boxes only for the organizer is nonsense. Restore the system as it was.</div>
+                        <button onclick="copySimple(this)" class="w-full bg-purple-600/20 border border-purple-500/50 hover:bg-purple-600/40 py-3 rounded-xl font-semibold transition">
+                            <span data-lang="ru">📋 Скопировать</span>
+                            <span data-lang="en">📋 Copy</span>
+                        </button>
+                    </div>
+                    
+                    <div class="copy-box rounded-xl p-6 border-l-4 border-pink-500">
+                        <div class="flex items-center gap-2 mb-4">
+                            <span class="bg-pink-600/30 text-pink-400 px-3 py-1 rounded-full text-sm font-bold">
+                                <span data-lang="ru">Вариант 3</span>
+                                <span data-lang="en">Variant 3</span>
+                            </span>
+                        </div>
+                        <div data-lang="ru" class="mono text-sm mb-4 whitespace-pre-wrap">#СТОПДОНАТ #ВЕРНИТЕУСКОРЫ
+
+FunPlus в лице разработчиков Tiles Survive убрали смысл помогать в рейдах. Теперь только лидер получает коробки. Я не буду платить, пока не вернут награды для всех.</div>
+                        <div data-lang="en" class="mono text-sm mb-4 whitespace-pre-wrap">#STOPDONATE #RESTORERAIDREWARDS
+
+FunPlus in the face of Tiles Survive developers removed the point of helping in raids. Now only the leader gets boxes. I won't pay until rewards are returned for everyone.</div>
+                        <button onclick="copySimple(this)" class="w-full bg-pink-600/20 border border-pink-500/50 hover:bg-pink-600/40 py-3 rounded-xl font-semibold transition">
+                            <span data-lang="ru">📋 Скопировать</span>
+                            <span data-lang="en">📋 Copy</span>
+                        </button>
+                    </div>
+                    
+                    <div class="copy-box rounded-xl p-6 border-l-4 border-purple-500">
+                        <div class="flex items-center gap-2 mb-4">
+                            <span class="bg-purple-600/30 text-purple-400 px-3 py-1 rounded-full text-sm font-bold">
+                                <span data-lang="ru">Вариант 4</span>
+                                <span data-lang="en">Variant 4</span>
+                            </span>
+                        </div>
+                        <div data-lang="ru" class="mono text-sm mb-4 whitespace-pre-wrap">#СТОПДОНАТ #ВЕРНИТЕУСКОРЫ
+
+Мой альянс присоединяется к бойкоту против FunPlus в лице разработчиков Tiles Survive. Никаких покупок, пока не вернут коробки ускорителей для всех участников рейдов. Присоединяйтесь!</div>
+                        <div data-lang="en" class="mono text-sm mb-4 whitespace-pre-wrap">#STOPDONATE #RESTORERAIDREWARDS
+
+My alliance joins the boycott against FunPlus in the face of Tiles Survive developers. No purchases until speed-up boxes are returned for all raid participants. Join us!</div>
+                        <button onclick="copySimple(this)" class="w-full bg-purple-600/20 border border-purple-500/50 hover:bg-purple-600/40 py-3 rounded-xl font-semibold transition">
+                            <span data-lang="ru">📋 Скопировать</span>
+                            <span data-lang="en">📋 Copy</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+<!-- Gallery -->
+<section class="py-20 px-6 bg-black/30">
+    <div class="max-w-6xl mx-auto">
+        <h2 class="text-center text-4xl md:text-5xl font-bold mb-12">
+            <span data-lang="ru" class="text-gradient">Картинки для ленты игры</span>
+            <span data-lang="en" class="text-gradient">Images for Game Feed</span>
+        </h2>
+        
+        <!-- Russian Images -->
+        <div id="gallery-ru" class="grid md:grid-cols-4 gap-6">
+            <div class="glass rounded-2xl overflow-hidden card-hover">
+                <img src="ru_1.jpg" alt="Протест 1" class="w-full h-48 object-cover">
+                <div class="p-6 text-center">
+                    <p data-lang="ru" class="text-zinc-400 mb-3">Протест 1</p>
+                    <a href="ru_1.jpg" download class="text-pink-400 hover:text-pink-300 font-semibold transition inline-flex items-center gap-1">
+                        ⬇ Скачать
+                    </a>
+                </div>
+            </div>
+            
+            <div class="glass rounded-2xl overflow-hidden card-hover">
+                <img src="ru_2.jpg" alt="Протест 2" class="w-full h-48 object-cover">
+                <div class="p-6 text-center">
+                    <p data-lang="ru" class="text-zinc-400 mb-3">Протест 2</p>
+                    <a href="ru_2.jpg" download class="text-pink-400 hover:text-pink-300 font-semibold transition inline-flex items-center gap-1">
+                        ⬇ Скачать
+                    </a>
+                </div>
+            </div>
+            
+            <div class="glass rounded-2xl overflow-hidden card-hover">
+                <img src="ru_3.jpg" alt="Протест 3" class="w-full h-48 object-cover">
+                <div class="p-6 text-center">
+                    <p data-lang="ru" class="text-zinc-400 mb-3">Протест 3</p>
+                    <a href="ru_3.jpg" download class="text-pink-400 hover:text-pink-300 font-semibold transition inline-flex items-center gap-1">
+                        ⬇ Скачать
+                    </a>
+                </div>
+            </div>
+            
+            <div class="glass rounded-2xl overflow-hidden card-hover">
+                <img src="ru_4.jpg" alt="Протест 4" class="w-full h-48 object-cover">
+                <div class="p-6 text-center">
+                    <p data-lang="ru" class="text-zinc-400 mb-3">Протест 4</p>
+                    <a href="ru_4.jpg" download class="text-pink-400 hover:text-pink-300 font-semibold transition inline-flex items-center gap-1">
+                        ⬇ Скачать
+                    </a>
+                </div>
+            </div>
+        </div>
+        
+        <!-- English Images -->
+        <div id="gallery-en" class="hidden grid md:grid-cols-4 gap-6">
+            <div class="glass rounded-2xl overflow-hidden card-hover">
+                <img src="en_1.jpg" alt="Protest 1" class="w-full h-48 object-cover">
+                <div class="p-6 text-center">
+                    <p data-lang="en" class="text-zinc-400 mb-3">Protest 1</p>
+                    <a href="en_1.jpg" download class="text-pink-400 hover:text-pink-300 font-semibold transition inline-flex items-center gap-1">
+                        ⬇ Download
+                    </a>
+                </div>
+            </div>
+            
+            <div class="glass rounded-2xl overflow-hidden card-hover">
+                <img src="en_2.jpg" alt="Protest 2" class="w-full h-48 object-cover">
+                <div class="p-6 text-center">
+                    <p data-lang="en" class="text-zinc-400 mb-3">Protest 2</p>
+                    <a href="en_2.jpg" download class="text-pink-400 hover:text-pink-300 font-semibold transition inline-flex items-center gap-1">
+                        ⬇ Download
+                    </a>
+                </div>
+            </div>
+            
+            <div class="glass rounded-2xl overflow-hidden card-hover">
+                <img src="en_3.jpg" alt="Protest 3" class="w-full h-48 object-cover">
+                <div class="p-6 text-center">
+                    <p data-lang="en" class="text-zinc-400 mb-3">Protest 3</p>
+                    <a href="en_3.jpg" download class="text-pink-400 hover:text-pink-300 font-semibold transition inline-flex items-center gap-1">
+                        ⬇ Download
+                    </a>
+                </div>
+            </div>
+            
+            <div class="glass rounded-2xl overflow-hidden card-hover">
+                <img src="en_4.jpg" alt="Protest 4" class="w-full h-48 object-cover">
+                <div class="p-6 text-center">
+                    <p data-lang="en" class="text-zinc-400 mb-3">Protest 4</p>
+                    <a href="en_4.jpg" download class="text-pink-400 hover:text-pink-300 font-semibold transition inline-flex items-center gap-1">
+                        ⬇ Download
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+        <!-- CTA -->
+        <section class="py-20 px-6 text-center">
+            <div class="max-w-3xl mx-auto space-y-6">
+                <a href="https://forms.gle/SXMW5neKdKCoYaMaA" target="_blank" class="inline-block btn-gradient px-12 py-5 rounded-2xl font-bold text-xl glow-pink">
+                    <span data-lang="ru">🚀 Отправить официальный отзыв →</span>
+                    <span data-lang="en">🚀 Submit Official Feedback →</span>
+                </a>
+                <div class="flex flex-col md:flex-row gap-4 justify-center">
+                    <a href="mailto:support@funplus.com" class="inline-block glass px-8 py-4 rounded-2xl font-bold text-lg hover:bg-white/10 transition">
+                        <span data-lang="ru">📧 support@funplus.com</span>
+                        <span data-lang="en">📧 support@funplus.com</span>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <!-- Footer -->
+    <footer class="py-12 text-center text-zinc-500 border-t border-zinc-800">
+        <p data-lang="ru">Сделано Shade #75 для сообщества Tiles Survive при поддержке одной чашки чая, grok code и 15 минут времени • Единство — наша сила</p>
+        <p data-lang="en">Made by Shade #75 for the Tiles Survive community with the support of one cup of tea, grok code and 15 minutes of time • Unity is our strength</p>
+    </footer>
+
+    <script>
+        function setLanguage(lang) {
+            document.body.className = lang === 'en' ? 'text-white lang-en' : 'text-white';
+            
+            const btnRu = document.getElementById('btn-ru');
+            const btnEn = document.getElementById('btn-en');
+            
+            if (lang === 'ru') {
+                btnRu.className = 'px-5 py-2.5 rounded-xl bg-pink-600/40 border border-pink-500/50 hover:bg-pink-600/60 transition font-semibold';
+                btnEn.className = 'px-5 py-2.5 rounded-xl bg-purple-600/20 border border-purple-500/50 hover:bg-purple-600/40 transition font-semibold';
+            } else {
+                btnRu.className = 'px-5 py-2.5 rounded-xl bg-pink-600/20 border border-pink-500/50 hover:bg-pink-600/40 transition font-semibold';
+                btnEn.className = 'px-5 py-2.5 rounded-xl bg-purple-600/40 border border-purple-500/50 hover:bg-purple-600/60 transition font-semibold';
+            }
+            
+            const galleryRu = document.getElementById('gallery-ru');
+            const galleryEn = document.getElementById('gallery-en');
+            
+            if (galleryRu && galleryEn) {
+                if (lang === 'ru') {
+                    galleryRu.classList.remove('hidden');
+                    galleryEn.classList.add('hidden');
+                } else {
+                    galleryRu.classList.add('hidden');
+                    galleryEn.classList.remove('hidden');
+                }
+            }
+        }
+        
+        function copySubject(btn) {
+            const container = btn.parentElement;
+            const ruText = container.querySelector('[data-lang="ru"]');
+            const enText = container.querySelector('[data-lang="en"]');
+            const isEn = document.body.classList.contains('lang-en');
+            const text = isEn ? enText.innerText : ruText.innerText;
+            
+            navigator.clipboard.writeText(text).then(() => {
+                const originalText = btn.innerHTML;
+                btn.innerHTML = '✅';
+                setTimeout(() => {
+                    btn.innerHTML = originalText;
+                }, 1500);
+            });
+        }
+        
+        function copyBody(btn) {
+            const container = btn.parentElement;
+            const ruText = container.querySelector('[data-lang="ru"]');
+            const enText = container.querySelector('[data-lang="en"]');
+            const isEn = document.body.classList.contains('lang-en');
+            const text = isEn ? enText.innerText : ruText.innerText;
+            
+            navigator.clipboard.writeText(text).then(() => {
+                const originalText = btn.innerHTML;
+                btn.innerHTML = '✅';
+                setTimeout(() => {
+                    btn.innerHTML = originalText;
+                }, 1500);
+            });
+        }
+        
+        function copySimple(btn) {
+            const container = btn.parentElement;
+            const ruText = container.querySelector('[data-lang="ru"]');
+            const enText = container.querySelector('[data-lang="en"]');
+            const isEn = document.body.classList.contains('lang-en');
+            const text = isEn ? enText.innerText : ruText.innerText;
+            
+            navigator.clipboard.writeText(text).then(() => {
+                const originalText = btn.innerHTML;
+                btn.innerHTML = '✅';
+                setTimeout(() => {
+                    btn.innerHTML = originalText;
+                }, 1500);
+            });
+        }
+        
+        function copyEmail() {
+            navigator.clipboard.writeText('support@funplus.com').then(() => {
+                const btns = document.querySelectorAll('button[onclick="copyEmail()"]');
+                btns.forEach(btn => {
+                    const originalText = btn.innerHTML;
+                    btn.innerHTML = '✅';
+                    setTimeout(() => {
+                        btn.innerHTML = originalText;
+                    }, 1500);
+                });
+            });
+        }
+        
+        setLanguage('ru');
+    </script>
+</body>
+</html>
