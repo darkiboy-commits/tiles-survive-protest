@@ -878,21 +878,38 @@ My alliance joins the boycott against FunPlus in the face of Tiles Survive devel
             });
         }
         
-        function copySimple(btn) {
-            const container = btn.parentElement;
-            const ruText = container.querySelector('[data-lang="ru"]');
-            const enText = container.querySelector('[data-lang="en"]');
-            const isEn = document.body.classList.contains('lang-en');
-            const text = isEn ? enText.innerText : ruText.innerText;
-            
-            navigator.clipboard.writeText(text).then(() => {
-                const originalText = btn.innerHTML;
-                btn.innerHTML = '✅';
-                setTimeout(() => {
-                    btn.innerHTML = originalText;
-                }, 1500);
-            });
-        }
+function copySimple(btn) {
+    const box = btn.closest('.copy-box');
+    if (!box) return;
+
+    const isEn = document.body.classList.contains('lang-en');
+    
+    // Ищем нужный блок по языку
+    const selector = isEn ? '[data-lang="en"]' : '[data-lang="ru"]';
+    let textElement = box.querySelector(selector + '.mono');
+    
+    // Если не нашли с .mono, ищем с flex-1 (для формы/поддержки/discord)
+    if (!textElement) {
+        textElement = box.querySelector(selector + '.flex-1');
+    }
+    
+    if (!textElement) {
+        console.error("Текст не найден");
+        return;
+    }
+
+    const text = textElement.innerText;
+
+    navigator.clipboard.writeText(text).then(() => {
+        const original = btn.innerHTML;
+        btn.innerHTML = '✅';
+        setTimeout(() => {
+            btn.innerHTML = original;
+        }, 1500);
+    }).catch(err => {
+        console.error("Ошибка копирования:", err);
+    });
+}
         
         function copyEmail() {
             navigator.clipboard.writeText('support@funplus.com').then(() => {
